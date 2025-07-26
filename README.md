@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🧠 EmotionSense  
-### A Hybrid Transformer-LSTM Based Emotion Classifier Built for 2025 Core Inductions  
+### A Hybrid Transformer-LSTM Based Emotion Predictor Built for 2025 Core Inductions  
 **By Vihaan Kanwar**  
 _“Understand the unsaid.”_
 
@@ -59,12 +59,12 @@ pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 transformers==4.3
 
 ### 🏃‍♂️ Step 3: Run train_model.py
 
- **💡 This will train the model and save it as "emotion_classifier_model.pth"**
+ **💡 This will train the model and save it as "emotion_predictor_model.pth"**
 
 
 ### 🔄️ Step 4: Update the path in "api.py"
 
-**In "api.py" update the path of emotion_classifier_model.pth at line 15**
+**In "api.py" update the path of emotion_predictor_model.pth at line 15**
 
 ### Final Step: Run the "api.py" and "index.html"
 
