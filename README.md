@@ -16,7 +16,7 @@ _“Understand the unsaid.”_
 
 ## 🚀 Overview
 
-**EmotionSense** is a state-of-the-art hybrid emotion classification system designed for **natural language emotional understanding**, integrating:
+**EmotionSense** is a  hybrid emotion classification system designed for **natural language emotional understanding**, integrating:
 
 - ⚙️ Transformer encoders (`RoBERTa-large`)
 - 🧬 Sentence embeddings (`all-MiniLM-L6-v2`)
@@ -24,7 +24,7 @@ _“Understand the unsaid.”_
 - 🔗 Contextual keyword pattern matching
 - 🔁 LLM-assisted ensemble predictions
 
-It intelligently fuses deep learning and rule-based NLP signals to **accurately detect 6 primary emotions**:
+It intelligently fuses deep learning and rule-based NLP signals to ** detect 6 primary emotions**:
 **Sadness, Joy, Love, Anger, Fear, Surprise.**
 
 ---
@@ -39,19 +39,6 @@ It intelligently fuses deep learning and rule-based NLP signals to **accurately 
 | 🎯 LLM Ensemble  | DistilRoBERTa Emotion Classifier via 🤗 Hub     |
 | 🧪 Training Logs | Python Logging, Evaluation, Batch Inference     |
 
----
-
-## 🧠 Features
-
-- Hybrid deep + rule-based NLP fusion
-- Confidence estimation logic for reliability
-- LLM-enhanced ensemble learning
-- Lightweight preprocessing and pattern scoring
-- Integrated attention weights and keyword analysis
-- Easy `save()` and `load()` checkpoints
-- Visual, interpretable outputs with top emotions and scores
-
----
 
 ## 🛠️ Run Locally
 
