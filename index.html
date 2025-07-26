@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmotionSense - AI Mood Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --surface: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-gradient: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+            min-height: calc(100vh - 4rem);
+        }
+
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .header {
+            background: var(--gradient);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.025em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 300;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p:last-child {
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        .input-section {
+            background: var(--card-gradient);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .label::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--gradient);
+            border-radius: 1px;
+        }
+
+        .textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            resize: vertical;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 
+                0 0 0 4px rgba(37, 99, 235, 0.1),
+                inset 0 2px 4px rgba(0, 0, 0, 0.02),
+                0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .textarea::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .button {
+            width: 100%;
+            padding: 1.25rem 2rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+        }
+
+        .button:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .button:disabled {
+            background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: none;
+        }
+
+        .spinner {
+            width: 22px;
+            height: 22px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-top: 2.5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .results-section {
+            background: var(--card-gradient);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-medium);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .results-section.empty {
+            opacity: 0.6;
+            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .results-section.loaded {
+            opacity: 1;
+            background: var(--card-gradient);
+            transform: scale(1.02);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .placeholder-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            width: 100%;
+            height: 100%;
+        }
+
+        .placeholder-icon {
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        .placeholder-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .emotion-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            width: 100%;
+        }
+
+        .emotion-icon {
+            font-size: 4rem;
+            line-height: 1;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .emotion-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .confidence-section {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .confidence-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .confidence-bar {
+            background: rgba(226, 232, 240, 0.6);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 6px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        .error {
+            background: linear-gradient(145deg, #fef2f2 0%, #fee2e2 100%);
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            color: var(--error);
+            display: none;
+            font-weight: 500;
+            box-shadow: var(--shadow-light);
+            margin-top: 1rem;
+        }
+
+        .error.visible {
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                min-height: auto;
+            }
+
+            .right-panel {
+                position: static;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .emotion-icon {
+                font-size: 3rem;
+            }
+
+            .emotion-name {
+                font-size: 1.5rem;
+            }
+
+            .button {
+                padding: 1.1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="header">
+                <h1>EmotionSense</h1>
+                <p>Advanced AI-powered mood predictor</p>
+                <p>Made with ❤️ by Vihaan Kanwar 8E for COЯE</p> 
+            </div>
+            
+            <div class="input-section">
+                <form class="form">
+                    <div class="form-group">
+                        <label class="label" for="thoughtInput">Your thoughts</label>
+                        <textarea 
+                            id="thoughtInput" 
+                            class="textarea" 
+                            placeholder="Share what's on your mind today..."
+                            rows="6"
+                        ></textarea>
+                    </div>
+                    
+                    <button type="submit" id="analyzeBtn" class="button">
+                        <span id="buttonText">Analyze Emotion</span>
+                        <div id="spinner" class="spinner" style="display: none;"></div>
+                    </button>
+                </form>
+
+                <div id="errorMessage" class="error">
+                    Something went wrong. Please try again.
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div id="resultsSection" class="results-section empty">
+                <div id="placeholderContent" class="placeholder-content">
+                    <div class="placeholder-icon">❓</div>
+                    <div class="placeholder-text">Your predicted emotion will appear here</div>
+                </div>
+
+                <div id="resultsContent" class="hidden">
+                    <div class="emotion-display">
+                        <span id="emotionIcon" class="emotion-icon">?</span>
+                        <span id="emotionName" class="emotion-name">Unknown</span>
+                    </div>
+                    
+                    <div class="confidence-section">
+                        <div class="confidence-label">
+                            <span>Confidence Level</span>
+                            <span id="confidenceValue">0%</span>
+                        </div>
+                        <div class="confidence-bar">
+                            <div id="confidenceFill" class="confidence-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class EmotionAnalyzer {
+            constructor() {
+                this.form = document.querySelector('.form');
+                this.input = document.getElementById('thoughtInput');
+                this.button = document.getElementById('analyzeBtn');
+                this.buttonText = document.getElementById('buttonText');
+                this.spinner = document.getElementById('spinner');
+                this.resultsSection = document.getElementById('resultsSection');
+                this.placeholderContent = document.getElementById('placeholderContent');
+                this.resultsContent = document.getElementById('resultsContent');
+                this.errorMessage = document.getElementById('errorMessage');
+                
+                this.emotionIcon = document.getElementById('emotionIcon');
+                this.emotionName = document.getElementById('emotionName');
+                this.confidenceValue = document.getElementById('confidenceValue');
+                this.confidenceFill = document.getElementById('confidenceFill');
+                
+                this.emotionMap = {
+                    'Sadness': { icon: '😢', color: '#3b82f6' },
+                    'Joy': { icon: '😊', color: '#10b981' },
+                    'Love': { icon: '💕', color: '#ec4899' },
+                    'Anger': { icon: '😠', color: '#ef4444' },
+                    'Fear': { icon: '😨', color: '#f59e0b' },
+                    'Surprise': { icon: '😲', color: '#8b5cf6' }
+                };
+                
+                this.init();
+            }
+            
+            init() {
+                this.form.addEventListener('submit', this.handleSubmit.bind(this));
+                this.input.focus();
+            }
+            
+            async handleSubmit(e) {
+                e.preventDefault();
+                
+                const text = this.input.value.trim();
+                if (!text) {
+                    this.input.focus();
+                    return;
+                }
+                
+                this.setLoading(true);
+                this.hideError();
+                
+                try {
+                    const response = await fetch('http://localhost:5000/predict', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Server error: ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    this.displayResults(data);
+                    this.input.value = '';
+                    
+                } catch (error) {
+                    this.showError(error.message);
+                } finally {
+                    this.setLoading(false);
+                    this.input.focus();
+                }
+            }
+            
+            displayResults(data) {
+                const emotion = data.predicted_emotion;
+                const confidence = Math.min(100, Math.max(0, data.confidence * 100));
+                
+                const emotionData = this.emotionMap[emotion] || { icon: '?', color: '#64748b' };
+                
+                this.emotionIcon.textContent = emotionData.icon;
+                this.emotionName.textContent = `Predicted tomorrow mood: ${emotion || 'Unknown'}`;
+                this.confidenceValue.textContent = `${confidence.toFixed(1)}%`;
+                
+                
+                this.placeholderContent.classList.add('hidden');
+                this.resultsContent.classList.remove('hidden');
+                this.resultsSection.classList.remove('empty');
+                this.resultsSection.classList.add('loaded');
+                
+                
+                setTimeout(() => {
+                    this.confidenceFill.style.width = `${confidence}%`;
+                }, 100);
+            }
+            
+            setLoading(loading) {
+                this.button.disabled = loading;
+                if (loading) {
+                    this.buttonText.textContent = 'Analyzing...';
+                    this.spinner.style.display = 'block';
+                    this.hideResults();
+                } else {
+                    this.buttonText.textContent = 'Analyze Emotion';
+                    this.spinner.style.display = 'none';
+                }
+            }
+            
+            hideResults() {
+                this.placeholderContent.classList.remove('hidden');
+                this.resultsContent.classList.add('hidden');
+                this.resultsSection.classList.add('empty');
+                this.resultsSection.classList.remove('loaded');
+                this.confidenceFill.style.width = '0%';
+            }
+            
+            showError(message) {
+                this.errorMessage.textContent = message;
+                this.errorMessage.classList.add('visible');
+                setTimeout(() => this.hideError(), 5000);
+            }
+            
+            hideError() {
+                this.errorMessage.classList.remove('visible');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            new EmotionAnalyzer();
+        });
+    </script>
+</body>
+</html>
