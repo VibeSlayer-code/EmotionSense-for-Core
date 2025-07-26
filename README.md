@@ -59,7 +59,7 @@ pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 transformers==4.3
 
 ### 🏃‍♂️ Step 3: Run train_model.py
 
-> 💡 This will train the model and save it as "emotion_classifier_model.pth"
+ **💡 This will train the model and save it as "emotion_classifier_model.pth"**
 
 
 ### 🔄️ Step 4: Update the path in "api.py"
