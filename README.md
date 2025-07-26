@@ -52,9 +52,22 @@ cd emotionsense
 
 ### 💾 Step 2: Install Libraries
 ```bash
-pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 transformers==4.39.3 sentence-transformers==2.2.2 numpy==1.26.4 flask==2.3.3 flask-cors==4.0.0 scikit-learn==1.3.2
+pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 transformers==4.39.3 sentence-transformers==2.2.2 numpy==1.26.4 flask==2.3.3 flask-cors==4.0.0 scikit-learn==1.3.2 flask==2.3.3 flask-cors==4.0.0 
 ```
 
-### 🏃‍♂️ Step: 3: Run train_model.py
+### 🏃‍♂️ Step 3: Run train_model.py
 
 > 💡 This will train the model and save it as "emotion_classifier_model.pth"
+
+### 🔄️ Step 4: Update the path in "api.py"
+
+**In "api.py" update the path of emotion_classifier_model.pth at line 15**
+
+### Final Step: Run the "api.py" and "index.html"
+**After doing all steps, run the api.py. If the api.py starts successfuly, run the index.html!**
+
+### 💡 Note:
+> If you update the port in "api.py", please also update it in "index.html" to avoid errors
+
+---
+**This project is fully tested and workes perfect and error free**
