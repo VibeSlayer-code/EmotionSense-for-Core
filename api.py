@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/predict": {"origins": "*"}})
 
 
-model_path = os.getenv(r"C:\Users\vihaa\Downloads\EmotionSense-for-Core-main\EmotionSense-for-Core-main\emotion_predictor_model.pth")
+model_path = os.getenv(r"PUT emotion_predictor_model.py PATH HERE")
 try:
     classifier = EmotionClassifier(
         model_name='roberta-large',
