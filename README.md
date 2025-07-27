@@ -5,7 +5,7 @@
 **By Vihaan Kanwar**  
 _“Understand the unsaid.”_
 
-[![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)](LICENSE)
+
 [![PyTorch](https://img.shields.io/badge/PyTorch-Enabled-red)](https://pytorch.org/)
 [![Transformers](https://img.shields.io/badge/🤗-Transformers-yellow)](https://huggingface.co/)
 [![Model Version](https://img.shields.io/badge/Version-1.0-green)](#)
