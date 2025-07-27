@@ -16,7 +16,7 @@ _“Understand the unsaid.”_
 
 ## 🚀 Overview
 
-**EmotionSense** is a  hybrid emotion classification system designed for **natural language emotional understanding**, integrating:
+**EmotionSense** is a  hybrid emotion prediction AI model designed for **natural language emotional understanding**, integrating:
 
 - ⚙️ Transformer encoders (`RoBERTa-large`)
 - 🧬 Sentence embeddings (`all-MiniLM-L6-v2`)
@@ -33,10 +33,10 @@ It intelligently fuses deep learning and rule-based NLP signals to **detect 6 pr
 
 | Layer             | Tech Stack                                     |
 |------------------|------------------------------------------------|
-| 🧠 Core Model     | PyTorch, HuggingFace Transformers              |
-| 📚 Sentence Embs | Sentence-Transformers (MiniLM-L6-v2)           |
-| 📊 Data Handling | NumPy, JSON, Regex NLP, Torch AMP              |
-| 🎯 LLM Ensemble  | DistilRoBERTa Emotion Classifier via 🤗 Hub     |
+|  Core Model     | PyTorch, HuggingFace Transformers              |
+|  Sentence Embs | Sentence-Transformers (MiniLM-L6-v2)           |
+|  Data Handling | NumPy, JSON, Regex NLP, Torch AMP              |
+|  LLM Ensemble  | DistilRoBERTa Emotion Classifier via 🤗 Hub     |
 
 
 
