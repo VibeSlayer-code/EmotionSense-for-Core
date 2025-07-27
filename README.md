@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧠 EmotionSense  
+#  EmotionSense  
 ### A Hybrid Transformer-LSTM Based Emotion Predictor Built for 2025 Core Inductions  
 **By Vihaan Kanwar**  
 _“Understand the unsaid.”_
@@ -18,18 +18,18 @@ _“Understand the unsaid.”_
 
 **EmotionSense** is a  hybrid emotion prediction AI model designed for **natural language emotional understanding**, integrating:
 
-- ⚙️ Transformer encoders (`RoBERTa-large`)
-- 🧬 Sentence embeddings (`all-MiniLM-L6-v2`)
-- 🧠 LSTM layers with attention pooling
-- 🔗 Contextual keyword pattern matching
-- 🔁 LLM-assisted ensemble predictions
+-  Transformer encoders (`RoBERTa-large`)
+-  Sentence embeddings (`all-MiniLM-L6-v2`)
+-  LSTM layers with attention pooling
+-  Contextual keyword pattern matching
+-  LLM-assisted ensemble predictions
 
 It intelligently fuses deep learning and rule-based NLP signals to **detect 6 primary emotions**:
 **Sadness, Joy, Love, Anger, Fear, Surprise.**
 
 ---
 
-## 🧰 Technologies Used
+##  Technologies Used
 
 | Layer             | Tech Stack                                     |
 |------------------|------------------------------------------------|
