@@ -53,7 +53,7 @@ cd emotionsense
 
 ### 💾 Step 2: Install Libraries
 ```bash
-pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 transformers==4.39.3 sentence-transformers==2.2.2 numpy==1.26.4 flask==2.3.3 flask-cors==4.0.0 scikit-learn==1.3.2 flask==2.3.3 flask-cors==4.0.0 
+pip install torch==2.3.0 transformers==4.42.3 sentence-transformers==3.0.1 numpy==1.26.4 flask==3.0.3 flask-cors==4.0.1
 ```
 
 
