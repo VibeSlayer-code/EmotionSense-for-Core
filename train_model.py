@@ -144,46 +144,65 @@ class HybridEmotionClassifier(nn.Module):
 
 class ImprovedEmotionPreprocessor:
     def __init__(self):
-        
         self.emotion_patterns = {
             'sadness': [
-                r'\b(sad|depressed|down|blue|melancholy|gloomy|miserable|unhappy|sorrowful|dejected)\b',
-                r'\b(cry|tears|weep|sob|crying|tearful)\b',
-                r'\b(hopeless|despair|grief|sorrow|disappointed|heartbroken|devastated)\b',
-                r'\b(nothing|wrong|feel|bad|worse|terrible|awful)\b'
+                r'\b(sad|depressed|down|blue|melancholy|gloomy|miserable|unhappy|sorrowful|dejected|forlorn|morose|woeful|despondent|heartbroken|devastated|bereft|gutted|disconsolate|crestfallen)\b',
+                r'\b(cry|tears|weep|sob|crying|tearful|bawling|wailing|blubbering|sniffling)\b',
+                r'\b(hopeless|despair|grief|sorrow|disappointed|woe|misery|anguish|agony|bitter|bleak|dismal|tragic|lament)\b',
+                r'\b(nothing|wrong|bad|worse|terrible|awful|horrible|dreadful|lonesome|lonely|isolated|abandoned)\b',
+                r'\b(down in the dumps|heart aches|like a punch to the gut|soul-crushing|heavy-hearted|in the doldrums)\b',
+                r'\b(lost|broken|shattered|empty inside|world falling apart|no light at the end of the tunnel)\b'
             ],
             'joy': [
-                r'\b(happy|joy|glad|cheerful|elated|ecstatic|thrilled|excited|delighted)\b',
-                r'\b(laugh|smile|grin|giggle|laughing|smiling)\b',
-                r'\b(awesome|amazing|wonderful|fantastic|great|excellent|perfect|brilliant)\b',
-                r'\b(celebrating|celebration|party|fun|enjoy)\b'
+                r'\b(happy|joy|glad|cheerful|elated|ecstatic|thrilled|excited|delighted|overjoyed|jubilant|euphoric|exhilarated|stoked|psyched|blissful|gleeful|ebullient)\b',
+                r'\b(laugh|smile|grin|giggle|laughing|smiling|chuckling|beaming|radiant|grinning)\b',
+                r'\b(awesome|amazing|wonderful|fantastic|great|excellent|perfect|brilliant|superb|terrific|phenomenal|stunning|splendid)\b',
+                r'\b(celebrating|celebration|party|fun|enjoy|rejoice|festive|merry|cheery|over the moon|on cloud nine|walking on air)\b',
+                r'\b(victory|win|triumph|success|achievement|nailed it|killed it)\b',
+                r'\b(feel alive|heart soaring|best day ever|pure happiness|life is good)\b'
             ],
             'anger': [
-                r'\b(angry|mad|furious|rage|irritated|annoyed|pissed|outraged)\b',
-                r'\b(hate|disgusted|upset|frustrated|aggravated|infuriated)\b',
-                r'\b(damn|hell|stupid|idiot|ridiculous|absurd)\b',
-                r'\b(betrayed|betrayal|unfair|injustice)\b'
+                r'\b(angry|mad|furious|rage|irritated|annoyed|pissed|outraged|enraged|incensed|livid|seething|fuming|irate|aggravated|infuriated|salty|cross)\b',
+                r'\b(hate|disgusted|upset|frustrated|resentful|bitter|appalled|indignant|exasperated|scornful)\b',
+                r'\b(damn|hell|stupid|idiot|ridiculous|absurd|moron|jerk|bullshit|crap|freaking|damn it)\b',
+                r'\b(betrayed|betrayal|unfair|injustice|cheated|screwed over|stabbed in the back|seeing red)\b',
+                r'\b(grinds my gears|makes my blood boil|drives me up the wall|had it up to here)\b',
+                r'\b(schadenfreude|vengeful|spiteful|malice|wrath)\b'
             ],
             'fear': [
-                r'\b(scared|afraid|terrified|frightened|anxious|worried|nervous)\b',
-                r'\b(panic|dread|uneasy|concerned|apprehensive|alarmed)\b',
-                r'\b(threat|danger|risk|unsafe|insecure)\b'
+                r'\b(scared|afraid|terrified|frightened|anxious|worried|nervous|petrified|panicked|dreadful|alarmed|apprehensive|trepidation|uneasy|concerned|jittery|shaky|spooked)\b',
+                r'\b(panic|dread|unease|fearful|tense|on edge|paranoid|horrified|shell-shocked)\b',
+                r'\b(threat|danger|risk|unsafe|insecure|peril|doom|menace|hazard|vulnerable)\b',
+                r'\b(heart in my throat|scared stiff|jumping at shadows|chills down my spine|blood running cold)\b',
+                r'\b(nightmare|worst case scenario|what if|can’t shake the feeling|living in fear)\b',
+                r'\b(haunted|ghostly|eerie|creepy|spooky|unnerving)\b'
             ],
             'love': [
-                r'\b(love|adore|cherish|treasure|affection|beloved|dear)\b',
-                r'\b(romantic|intimate|caring|tender|sweet|darling)\b',
-                r'\b(family|relationship|partner|husband|wife|girlfriend|boyfriend)\b'
+                r'\b(love|adore|cherish|treasure|affection|beloved|dear|devoted|smitten|enamored|infatuated|fond|doting|ardent)\b',
+                r'\b(romantic|intimate|caring|tender|sweet|darling|heartfelt|passionate|adoring|warmth)\b',
+                r'\b(family|relationship|partner|husband|wife|girlfriend|boyfriend|soulmate|kindred spirit|better half)\b',
+                r'\b(butterflies in my stomach|heart skips a beat|head over heels|love of my life|forever and always)\b',
+                r'\b(closeness|bond|connection|devotion|tenderness|sweetheart)\b',
+                r'\b(cuddle|embrace|hug|kiss|warm fuzzies|heartwarming)\b'
             ],
             'surprise': [
-                r'\b(surprised|shocked|amazed|astonished|stunned|bewildered)\b',
-                r'\b(wow|omg|incredible|unbelievable|unexpected|sudden)\b',
-                r'\b(can\'t believe|never expected|out of nowhere)\b'
+                r'\b(surprised|shocked|amazed|astonished|stunned|bewildered|flabbergasted|dumbfounded|astounded|taken aback|shook|floored)\b',
+                r'\b(wow|omg|incredible|unbelievable|unexpected|sudden|whoa|holy crap|mind-blowing)\b',
+                r'\b(can\'t believe|never expected|out of nowhere|caught off guard|blew my mind|jaw-dropping)\b',
+                r'\b(twist|plot twist|shock of my life|bolt from the blue|out of left field)\b',
+                r'\b(unforeseen|staggering|unimaginable|surreal|what just happened)\b',
+                r'\b(game-changer|curveball|shocker|eye-opener)\b'
             ]
         }
         
-        
         self.negation_patterns = [
-            r'\b(not|never|no|don\'t|doesn\'t|didn\'t|won\'t|wouldn\'t|can\'t|couldn\'t)\b'
+            r'\b(not|never|no|don\'t|doesn\'t|didn\'t|won\'t|wouldn\'t|can\'t|couldn\'t|shouldn\'t|ain\'t|n\'t)\b',
+            r'\b(hardly|barely|scarcely|rarely|seldom|nary)\b',
+            r'\b(none|nobody|nothing|nowhere|neither|nor)\b',
+            r'\b(without|lack|lacking|absence|devoid|bereft)\b',
+            r'\b(unless|lest|no way|by no means|not at all|not even close)\b',
+            r'\b(why don\'t|how come|what if not|never in a million years)\b',
+            r'\b(ain\'t no|nope|nah|not really|not quite)\b'
         ]
     
     def extract_emotion_features(self, text: str) -> Dict[str, float]:
